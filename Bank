@@ -1,0 +1,160 @@
+import java.util.Scanner;
+
+//import required classes/packages
+
+//BLC class
+class Bank{
+	
+	//define instance variables
+  private String bankName;
+  private String bankCustomerName;
+  private String bankAddress;
+  private String bankIFSCCode;
+  private long customerAccountNumber;
+  private double currentBalance;
+  
+	
+	//set values to instance variables using this method
+  public Bank(String bankName, String bankCustomerName, String bankAddress, String bankIFSCCode,long customerAccountNumber, double currentBalanace) {
+		super();
+		this.bankName = bankName;
+		this.bankCustomerName = bankCustomerName;
+		this.bankAddress = bankAddress;
+		this.bankIFSCCode = bankIFSCCode;
+		this.customerAccountNumber = customerAccountNumber;
+		this.currentBalance = currentBalanace;
+	}
+  
+  	// setDetails method
+  public void setDetails(String bankName, String bankCustomerName, String bankAddress, String bankIFSCCode,long customerAccountNumber, double currentBalance) {
+	  	this.bankName = bankName;
+		this.bankCustomerName = bankCustomerName;
+		this.bankAddress = bankAddress;
+		this.bankIFSCCode = bankIFSCCode;
+		this.customerAccountNumber = customerAccountNumber;
+		this.currentBalance = currentBalance;
+  }
+	// this method is used to withdraw amount
+	public void withdraw(double amount) {
+		currentBalance = currentBalance - amount;
+		if(currentBalance <=1000) {
+			System.out.println("InsufficientBalance");
+		}
+		else {
+			
+			if(currentBalance<1000) {
+				System.out.println("Maintain MinimumBalance.");
+			}
+			else {
+				System.out.println("Transaction Successfull ");
+				System.out.println("The available balance is "+currentBalance);
+			}
+		}
+	}
+	
+
+	// this method is used to deposit the amount
+	public void deposit(double amount) {
+		if(currentBalance <=1000) {
+			System.out.println(" Rs.1000 is the minimum balance to be maintained.");
+			
+		}
+		currentBalance = currentBalance + amount ;
+		currentBalance();
+		System.out.println("Deposited Successfully");
+		System.out.println("Available balance is : "+currentBalance);
+	}
+	
+	// this method is used to display available balance
+	public void currentBalance() {
+		System.out.println("current balance is : "+currentBalance);
+		
+	}
+	
+	//this method is used to display customer information using toString method
+	public String displayDetails() {
+		
+		return toString();
+	}
+
+	 
+	
+	//override toString method
+	@Override
+	public String toString() {
+		return "Bank [bankName=" + bankName + ", bankCustomerName=" + bankCustomerName + ", bankAddress=" + bankAddress
+				+ ", bankIFSCCode=" + bankIFSCCode + ", customerAccountNumber=" + customerAccountNumber
+				+ ", currentBalance=" + currentBalance + "]";
+	}
+}
+
+//An ELC class OnlineBanking to test our code
+public class OnlineBanking {
+
+	public static void main(String[] args) {
+		//create an object to Bank class and assign values to instance variables
+		
+		Bank b = new Bank(null, null, null, null, 0, 0);
+		
+		//Create scanner object and ask user to enter a number to perform specific transaction 
+		Scanner sc = new Scanner(System.in);
+		
+		System.out.print("Enter Bank Name :");
+		String bankName = sc.nextLine();
+		
+		System.out.print("Enter Bank Customer Name :");
+		String bankCustomerName = sc.nextLine();
+		
+		System.out.print("Enter Bank Address :");
+		String bankAddress = sc.nextLine();
+		
+		System.out.print("Enter Bank IFSC Code :");
+		String bankIFSCCode = sc.nextLine();
+		
+		System.out.print("Enter Cutomer Account Number :");
+		long customerAccountNumber = sc.nextInt();
+		
+		System.out.print("Enter Current Balance :");
+		double currentBalance = sc.nextDouble();
+		
+		//by passing bank details to setDetails method
+		b.setDetails(bankName, bankCustomerName, bankAddress, bankIFSCCode,customerAccountNumber,currentBalance);
+		
+		//logic to call specific method based on user input
+		System.out.println("Enter 1 for balance enquiry\r\n"
+				+ "\r\n"
+				+ "Enter 2 for withdraw amount\r\n"
+				+ "\r\n"
+				+ "Enter 3 for deposit\r\n"
+				+ "\r\n"
+				+ "Enter 4 for display customer details");
+		int num = sc.nextInt();
+		switch(num) {
+		case 1:
+			b.currentBalance();
+			break;
+			
+		case 2:
+			System.out.println("Enter amount you want to withdraw :");
+			double amount = sc.nextDouble();
+			b.withdraw(amount);
+			break;
+		
+		case 3:
+			System.out.println("Enter amount you want to deposit :");
+			double amount1 = sc.nextDouble();
+			b.deposit(amount1);
+			break;
+			
+		case 4:
+			b.displayDetails();
+		}
+		
+		
+		//close scanner
+		sc.close();
+		
+
+	}
+
+}
